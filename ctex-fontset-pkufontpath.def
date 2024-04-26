@@ -1,0 +1,37 @@
+\ProvidesExplFile{\ExplFileName}{\ExplFileDate}{}{}
+
+\setCJKmainfont   { SimSun   } [
+    Path = ./pkufont/,
+    BoldFont = SimHei,
+    ItalicFont = KaiTi
+    ]
+\setCJKsansfont   { SimHei   } [
+    Path = ./pkufont/,
+    AutoFakeBold = true
+    ]
+\setCJKmonofont   { FangSong } [
+    Path = ./pkufont/,
+    AutoFakeBold = true
+    ]
+\setCJKfamilyfont { zhsong   } { SimSun   } [
+    Path = ./pkufont/,
+    BoldFont = SimHei,
+    ItalicFont = KaiTi
+    ]
+\setCJKfamilyfont { zhhei    } { SimHei   } [
+    Path = ./pkufont/,
+    AutoFakeBold = true
+    ]
+\setCJKfamilyfont { zhfs     } { FangSong } [
+    Path = ./pkufont/,
+    AutoFakeBold = true
+    ]
+\setCJKfamilyfont { zhkai    } { KaiTi    } [
+    Path = ./pkufont/,
+    AutoFakeBold = true
+    ]
+
+\NewDocumentCommand \songti   { } { \CJKfamily { zhsong  } }
+\NewDocumentCommand \heiti    { } { \CJKfamily { zhhei   } }
+\NewDocumentCommand \fangsong { } { \CJKfamily { zhfs    } }
+\NewDocumentCommand \kaishu   { } { \CJKfamily { zhkai   } }

@@ -1,0 +1,22 @@
+{
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.bbl": true,
+        "**/*.blg": true,
+        "**/*.cut": true,
+        "**/*.gz": true,
+        "**/*.loc": true,
+        "**/*.log": true,
+        "**/*.out": true,
+        "**/*.soc": true,
+        "**/*.lof": true,
+        "**/*.lot": true,
+        "**/*.toc": true,
+        "**/*.xdv": true,
+        "**/*.xml": true,
+        "**/*.bcf": true,
+        "**/*.fls": true,
+        "**/*.fdb_latexmk": true
+    },
+    "latex-workshop.latex.recipe.default": "latexmk (xelatex)"
+}

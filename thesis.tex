@@ -1,0 +1,148 @@
+% Zhiyunyao/pkuthss: lite LaTeX template for dissertations at Peking University
+% 2024/04/26 v1.9.4-lite
+% GitHub:   https://github.com/zhiyunyao/pkuthss/tree/lite
+% Overleaf: https://www.overleaf.com/read/wmsmytgjkxfy#c888f2
+
+% Copyright (c) 2008-2009 solvethis
+% Copyright (c) 2010-2022,2024 Casper Ti. Vector
+% Copyright (c) 2021 Kurapica
+% Copyright (c) 2022 iofu728
+% Copyright (c) 2024 Zhiyunyao
+
+\documentclass[fontset=pkufontauto,zihao=-4,ugly,openany]{pkuthss}
+% 字体库      fontset (pkufontauto | pkufontpath)  系统装有宋体等字体请使用 pkufontauto；
+%                                  否则使用 pkufontpath 并新建 pkufont 文件夹放置所需字体
+% 默认字号     zihao    (-4 | 5)    设定默认字号为小四|五号
+% 学位论文模式  ugly   (默认关闭)   打开后论文严格按照学校格式要求编译
+% 盲审模式     blind   (默认关闭)   打开后论文按照盲审格式编译
+% 章节新页模式 openany (默认关闭)   每章都从右页（奇数页）开始；打开后每章从任意页开始（禁止章末空白页）
+
+% 参考文献遵循GB/T 7714-2015标准，使用biblatex-gb7714-2015 宏包
+% 此处使用顺序编码制，如使用著者-出版年制则更改为b7714-2015ay
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
+% 设定参考文献列表的段间距
+\setlength{\bibitemsep}{3bp}
+% 载入参考文献数据库（注意不要省略“.bib”）
+\addbibresource{thesis.bib}
+
+% 示例文档用包和设定，该段均可移除
+\usepackage[perpage]{footmisc} % 脚注按页编号
+\usepackage{enumitem,fancyvrb} % 列表相关
+\usepackage{booktabs,multirow,longtable,makecell} % 表格相关
+\usepackage{hologo} % Tex徽标
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{frame=single, tabsize=4, fontsize=\footnotesize}
+\renewcommand{\v}[1]{\boldsymbol{#1}}
+\newcommand\pkg[1]{\textsf{#1}}
+\def\liteversion{v1.9.4-lite}
+\def\pkuthss{pkuthss \liteversion}
+
+%% 设定文档基本信息（按照在论文中出现顺序）
+% cthesisname: 论文类别，显示在偶数页页眉和pdf文档subject属性，如：
+%              北京大学博士研究生学位论文/北京大学博士学位研究生学科综合考试报告/
+%              北京大学硕士研究生学位论文/北京大学本科生毕业论文
+\cthesisname{北京大学博士研究生学位论文}
+% thesiscover: 封面显示的论文类别，一般是cthesisname去掉学校名
+\thesiscover{博士研究生学位论文}
+% ctitlelines: 封面论文标题的下划线行数，设置为0则不在封面显示标题
+\ctitlelines{1}
+% ctitle: 论文标题，长标题用“\\”强制换行（v1.9.4-lite之前版本“\\”问题已修复）
+\ctitle{\pkuthss{} 用户指南}
+\cauthor{某某某}
+\studentid{0123456789}
+\school{某某学院}
+\cmajor{某某专业}
+\direction{某某方向}
+\cmentorlines{2}
+\cmentor{甲\ 教授\\乙\ 教授}
+% degreetype: 1->学术学位，2->专业学位，0->不显示学位类型
+\degreetype{1}
+% date: 具体时间以教务为准，初稿3月，送审4月，答辩5月，最终6月
+\date{二〇二四年五月}
+\ckeywords{其一，其二}
+
+% 英文信息，只在英文摘要页显示
+\etitle{\pkuthss{} User Guide}
+\eauthor{XXXXXX XXX}
+\emajor{XX Major}
+% ementor: 教授 Prof., 副教授 A.P., 讲师 Lec.
+\ementor{Prof.\ A and Prof.\ B}
+\ekeywords{First, Second}
+
+%% 盲审信息，只在盲审模式显示，无盲审需求的用户可忽略
+% discipline: 一级学科（cmajor是二级学科）
+\discipline{计算机科学与技术}
+% blindid: 盲审论文编号
+\blindid{9876543210}
+
+%% 设定论文元素名称
+\ctexset{
+    % appendixname   = {附录},
+    % bibname        = {参考文献},
+    % contentsname   = {目录},
+    listtablename  = {表格索引},
+    listfigurename = {插图索引},
+    % figurename     = {图},
+    % tablename      = {表}
+}
+
+%% 设定链接显示效果
+\hypersetup{
+    hidelinks,                   % 移除链接的字体颜色和边框
+    linktoc            = all,    % 目录设置为链接的级别 (none | section | page | all)
+    breaklinks         = true,   % 是否允许链接换行
+    pdfdisplaydoctitle = true,   % 是否在文件标题属性展示标题而不是文件名
+    bookmarksdepth     = 3,      % pdf 书签最大深度
+    bookmarksopen      = true,   % pdf 书签是否自动展开
+    bookmarksopenlevel = 1       % pdf 书签自动展开级别
+}%
+
+\begin{document}
+    %% 以下为正文之前的部分，默认不进行章节编号
+    \frontmatter
+    % 此后到下一 \pagestyle 命令之前不排版页眉或页脚
+    \pagestyle{empty}
+    % 自动生成封面
+    \maketitle
+    % 封面要求单面打印，故须新开右页
+    \cleardoublepage
+    \include{chap/Copyright}
+
+    %% 此后到下一 \pagestyle 命令之前正常排版页眉和页脚
+    \cleardoublepage
+    \pagestyle{plain}
+    % 重置页码计数器，用大写罗马数字排版此部分页码
+    \setcounter{page}{0}
+    \pagenumbering{Roman}
+    % 中英文摘要
+    \include{chap/Abstract}
+    % 自动生成目录
+    \tableofcontents
+    % 如有需要自动生成表格索引、插图索引
+    \listoftables
+    \listoffigures
+    % 如有需要生成主要符号对照表
+    \include{chap/Denotation}
+
+    %% 以下为正文部分，默认要进行章节编号
+    \mainmatter
+    \include{chap/1-Intro}
+    \include{chap/2-Feature}
+    \include{chap/3-Advanced}
+    \include{chap/4-Supplement}
+
+    %% 正文中的附录部分
+    \appendix
+    % 要使参考文献列表参与章节编号，可将“bibintoc”改为“bibnumbered”
+    \printbibliography[heading=bibintoc]
+    \include{chap/Appendix}
+
+    %% 以下为正文之后的部分，默认不进行章节编号
+    \backmatter
+	\ifnoblind
+	    \include{chap/Publication}
+        \include{chap/Acknowledgment}
+	    \include{chap/Declaration}
+    \fi
+
+\end{document}

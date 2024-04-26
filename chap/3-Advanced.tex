@@ -1,0 +1,110 @@
+\chapter{高级设置}
+本章介绍一些较复杂的设置。
+
+\section{从\CTeX{}宏集继承的功能}
+\label{sec:ctex}
+pkuthss 文档类建立在 \CTeX{}宏集的 ctexbook\cite{ctex} 文档类之上，
+因此，ctexbook 文档类所提供的功能均可以使用。
+
+\subsection{字体设置}
+
+\texttt{pkufontauto} 和 \texttt{pkufontpath} 定义了符合北京大学论文要求的字体，
+包括中易宋体、中易黑体、中易楷体和中易仿宋四种字体，具体情况如下：
+\begin{itemize}
+    \item \verb|\songti|，中易宋体，作为默认中文字体使用，衬线字体，\verb|\textrm|；
+    \item \verb|\heiti|，中易黑体，无衬线字体，\verb|\bfseries|，\verb|\textbf|和\verb|\textsf|；
+    \item \verb|\fangsong|，中易仿宋，等宽字体，\verb|\texttt|；
+    \item \verb|\kaishu|，中易楷体，\verb|\textit|。
+\end{itemize}
+
+字形方面，使用中易黑体作为中易宋体的粗体，中易楷体作为中易宋体的斜体，
+使用中易黑体、中易楷体、中易仿宋的假粗体作为对应字体的粗体。
+
+\texttt{pkufontauto} 和 \texttt{pkufontpath} 两种选项的区别是：
+\texttt{pkufontauto} 从系统中自动搜索字体，适用于 Windows 平台；
+\texttt{pkufontpath} 则通过指定字体文件路径，使用当前路径 \texttt{pkufont} 文件夹下的字体，
+适用于缺少相应字体的平台。
+
+例如，在 Windows 平台上，应在载入 pkuthss 文档类时加上：
+\begin{Verbatim}
+\documentclass[fontset=pkufontauto, ...]{pkuthss}
+% “...”代表其它的选项。
+\end{Verbatim}
+而在 Overleaf 平台上，则应在载入 pkuthss 文档类时加上：
+\begin{Verbatim}
+\documentclass[fontset=pkufontpath, ...]{pkuthss}
+% “...”代表其它的选项。
+\end{Verbatim}
+并在当前路径新建 \texttt{pkufont} 文件夹，放置四种字体。
+
+如果想要更换中文字体，可以通过新建 ctex-fontset-myfontset.def 定义自己的 fontset \verb|myfontset|。
+在系统装有相应字体时，也可以使用CTEX预定义的六种中文字库：
+\begin{itemize}
+    \item \verb|adobe|，使用Adobe公司的中文字体，不支持\hologo{pdfLaTeX}。
+    \item \verb|fandol|，使用Fandol 中文字体，不支持\hologo{pdfLaTeX}。
+    \item \verb|founder|，使用方正公司的中文字体。
+    \item \verb|mac|，使用macOS系统下的字体，不支持\hologo{pdfLaTeX}，根据版本又分为macnew和macold两种。
+    \begin{itemize}
+        \item \verb|macnew|，使用ElCapitan 或之后的多字重华文字体和苹方字体。
+        \item \verb|macold|，使用Yosemite 或之前的华文字体。
+    \end{itemize}
+    \item \verb|ubuntu|，使用Ubuntu系统下的思源宋体、思源黑体和TEX发行版自带的文鼎楷体，不支持\hologo{pdfLaTeX}。
+    \item \verb|windows|，使用 Windows 系统下的中易字体和微软雅黑字体。
+\end{itemize}
+默认情况下，\CTeX{}宏集根据编译方式和操作系统自动指定相应字库。
+
+\subsection{字号设置}
+
+\texttt{zihao} 的选项只有 -4 | 5 | \texttt{false} 三种，
+-4 | 5 将文章默认字号 \texttt{\bfseries\string\normalsize}设置为小四号字或五号字，
+\texttt{false}禁用本功能。
+
+\subsection{章节新页模式设置}
+文档默认情况下是双面模式，每章都从右页（奇数页）开始。
+如果希望改成一章可以从任意页开始（禁止章末空白页），可以加上 \texttt{openany} 选项：
+\begin{Verbatim}
+\documentclass[openany, ...]{pkuthss} % 每章从任意页开始。
+\end{Verbatim}
+
+\subsection{论文元素名称设置}
+用户可以使用 ctexbook 文档类提供的 \verb|\ctexset| 命令设定论文元素名称：
+\begin{Verbatim}
+\ctexset{
+    appendixname   = {附录},
+    bibname        = {参考文献},
+    contentsname   = {目录},
+    listtablename  = {表格索引},
+    listfigurename = {插图索引},
+    figurename     = {图},
+    tablename      = {表}
+}
+\end{Verbatim}
+例如，将目录的标题改为“目{\quad\quad}录”：
+\begin{Verbatim}
+\ctexset{
+    contentsname = {目\quad\quad录}
+}
+\end{Verbatim}
+
+\section{从其它宏包继承的功能}
+\label{sec:thirdparty}
+
+pkuthss 文档类调用了 geometry\cite{geometry}、fancyhdr\cite{fancyhdr}、%
+hyperref\cite{hyperref}、graphicx\cite{graphicx}
+和 ulem\cite{ulem} 等几个宏包。
+因此，这些宏包所提供的功能均可以使用。
+
+除此之外，pkuthss 文档类还可能调用以下这些宏包：
+\begin{itemize}
+    \item 启用 \verb|pkufont| 选项时会调用 amsmath、unicode-math
+        \cite{unicode-math} 宏包，不启用
+        \verb|pkufont| 选项时会调用 amssymb\cite{amssymb} 宏包。
+    \item 启用 \verb|pkufoot| 选项时会调用
+        tikz\cite{tikz} 和 scrextend\cite{scrextend} 宏包。
+    \item 启用 \verb|pkuspace| 选项时会调用
+        tocloft\cite{tocloft}、caption\cite{caption} 和
+        subcaption\cite{subcaption} 宏包。
+    \item 启用 \verb|spacing| 选项时会调用 setspace 和
+        enumitem\cite{enumitem} 宏包。
+\end{itemize}
+因此在启用相应选项时，用户可以使用对应宏包所提供的功能。

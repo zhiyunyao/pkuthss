@@ -1,0 +1,12 @@
+*.*
+!.gitignore
+!.vscode
+!.vscode/*
+
+!*.bib
+!*.cls
+!*.def
+!*.tex
+!*.md
+!fig/*.pdf
+!userguide.pdf

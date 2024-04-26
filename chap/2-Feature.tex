@@ -1,0 +1,210 @@
+\chapter{模版功能}
+本章对模版提供的功能和配置项进行介绍说明。
+
+\section{文档类选项}
+\label{sec:option}
+
+除非特别说明，否则这一节提到的选项中都是不带“\verb|no|”的版本被启用。
+
+\begin{itemize}
+    \item \textbf{\texttt{[no]blind}}：
+        是否按照盲审格式编译，使用盲审封面，不包含“发表论文信息”、“致谢”和“声明”章节。\emph{%
+            pkuthss 文档类默认启用 \texttt{noblind} 选项，
+            即不按照盲审格式编译%
+        }。
+
+    \item \textbf{\texttt{[no]uppermark}}：
+        是否在页眉中将章节名中的小写字母转换为大写字母。
+        就目前而言，这样的转换存在着一些较为严重的缺陷\footnote{%
+            准确地说是 \texttt{\string\MakeUppercase} 宏的问题：
+            其在某些地方的转换不够健壮，
+            例如 \texttt{\string\cite\string{ctex\string}}
+            会被转换成 \texttt{\string\cite\string{CTEX\string}}。%
+        }，因此不建议使用。
+        基于上述考虑，\emph{%
+            pkuthss 文档类默认启用 \texttt{nouppermark} 选项，
+            即不在页眉中使用大写的章节名%
+        }。
+
+    \item \textbf{\texttt{[no]pkufont}}：
+        是否根据学校对论文格式的要求\cite{pku-thesisstyle}%
+        将西文字体改为类似于 Times New Roman / Arial 的字体。
+
+    \item \textbf{\texttt{[no]pkufoot}}\footnote{%
+            此选项等价于 1.6.4 及以前版本 pkuthss-extra 宏包的
+            \texttt{[no]footfmt} 选项；
+            更改名称是为了使文档类选项名更加规则。%
+        }：
+        是否根据学校对论文格式的要求\cite{pku-thesisstyle}%
+        修改和脚注相关的一些格式。
+        具体地说，启用 \verb|pkufoot| 选项后会进行以下几项设置：
+    \begin{itemize}
+        \item 脚注参用带圈的编号。
+        \item 页脚中脚注编号使用正文（而非上标）字体。
+        \item 页脚中脚注编号和脚注文本之间默认间隔一个空格。
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]pkuspace}}：
+        是否根据学校对论文格式的要求\cite{pku-thesisstyle}%
+        修改排版中的一些间距及相关设置。
+        具体地说，启用 \verb|pkuspace| 选项后会按
+        \parencite{pku-thesisstyle} 中的要求修改以下几项设置：
+    \begin{itemize}
+        \item 正文的行距。
+        \item 目录中条目的缩进方式。
+        \item 图表标题的字号，以及标题中编号和标题文字之间的间隔方式
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]spacing}}\footnote{%
+            因为代码重构的缘故，
+            此选项同时提供 1.5.5 及以前版本 pkuthss-extra 宏包
+            中 \texttt{[no]tightlist} 选项所提供的功能。%
+        }：
+        是否采用一些常用的调整间距的额外版式设定。
+        具体地说，启用 \verb|spacing| 选项后会进行以下几项设置：
+    \begin{itemize}
+        \item 调用 setspace 宏包以使某些细节处的空间安排更美观。
+        \item 采用比 \hologo{LaTeX} 默认设定更加紧密的枚举环境%
+            \footnote{%
+                在枚举环境（itemize、enumerate 和 description）中，
+                每个条目的内容较少时，条目往往显得稀疏；
+                在参考文献列表中也有类似的现象。
+                启用 \texttt{spacing} 选项后，
+                将去掉这些环境中额外增加的（垂直）间隔。%
+            }。
+        \item 调整枚举环境的缩进，以适应中文排版中的习惯。
+    \end{itemize}
+
+    \item \textbf{\texttt{[no]spechap}}\footnote{%
+            “spechap”是“\textbf{spec}ial \textbf{chap}ter”的缩写。%
+        }：
+        是否启用第 \ref{sec:misc} 小节中介绍的 \verb|\specialchap| 命令。
+
+    \item \textbf{\texttt{[no]pdftoc}}\footnote{%
+            此选项部分等价于 1.4 alpha2 及以前版本 pkuthss-extra 宏包
+            的 \texttt{[no]tocbibind} 选项。
+            因为 tocbibind 宏包和 biblatex 宏包冲突，%
+            pkuthss 文档类不再调用 tocbibind 宏包。%
+        }：
+        启用 \verb|pdftoc| 选项后，
+        用 \verb|\tableofcontents| 命令生成目录时会自动添加“目录”的 pdf 书签。
+
+    \item \textbf{\texttt{[no]pdfprop}}：
+        是否自动根据设定的论文文档信息（如作者、标题等）
+        设置生成的 pdf 文档的相应属性。\emph{%
+            注意：该选项实际上是在 \texttt{\string\maketitle} 时生效的，
+            这是因为考虑到
+            通常用户在调用 \texttt{\string\maketitle} 前
+            已经设置好所有的文档信息。
+            若用户不调用 \texttt{\string\maketitle}，
+            则须在设定完文档信息之后自行调用
+            第 \ref{sec:misc} 小节中介绍的
+            \texttt{\string\setpdfproperties} 命令以完成
+            pdf 文档属性的设定。%
+        }
+
+    \item \textbf{其余文档类选项}：%
+        pkuthss 文档类以 ctexbook 文档类为基础，
+        其接受的其余所有文档类选项均被传递给 ctexbook。
+        其中可能最常用的选项是 \verb|fontset| 和 \verb|zihao|，
+        它们选择中文字体和默认字号。详见第 \ref{sec:ctex} 小节。
+\end{itemize}
+
+\section{文档信息设定}
+\label{sec:info}
+
+这一类命令的语法为
+\begin{Verbatim}
+  \commandname{具体信息} % commandname 为具体命令的名称。
+\end{Verbatim}
+
+这些命令总结如下：
+\begin{itemize}
+    \item \texttt{\bfseries\string\cthesisname}：论文类别的中文名；
+    \item \texttt{\bfseries\string\thesiscover}：封面显示的论文类别；
+    \item \texttt{\bfseries\string\ctitlelines}：封面论文标题的下划线行数，设置为0则不在封面显示标题；
+    \item \texttt{\bfseries\string\ctitle}：设定论文中文标题，长标题用“\backslash\backslash”强制换行；
+    \item \texttt{\bfseries\string\cauthor}：设定作者的中文名；
+    \item \texttt{\bfseries\string\studentid}：设定作者的学号；
+    \item \texttt{\bfseries\string\school}：设定作者的学院名；
+    \item \texttt{\bfseries\string\cmajor}：设定作者专业（二级学科）的中文名；
+    \item \texttt{\bfseries\string\direction}：设定作者的研究方向；
+    \item \texttt{\bfseries\string\cmentorlines}：封面“导师”部分的行数；
+    \item \texttt{\bfseries\string\cmentor}：设定导师的中文名；
+    \item \texttt{\bfseries\string\degreetype}：
+        设定学位类型（1 为学术学位，2 为专业学位，设为 0 则不显示学位类型）；
+    \item \texttt{\bfseries\string\date}：设定日期；
+    \item \texttt{\bfseries\string\ckeywords}：设定中文关键词；
+    \item \texttt{\bfseries\string\etitle}：设定论文西文标题；
+    \item \texttt{\bfseries\string\eauthor}：设定作者的西文名；
+    \item \texttt{\bfseries\string\emajor}：设定作者专业（二级学科）的西文名；
+    \item \texttt{\bfseries\string\ementor}：设定导师的西文名；
+    \item \texttt{\bfseries\string\ekeywords}：设定西文关键词；
+    \item \texttt{\bfseries\string\discipline}：设定一级学科（双盲评审用）。
+    \item \texttt{\bfseries\string\blindid}：设定论文编号（双盲评审用）；
+\end{itemize}
+
+例如，如果要设定专业为“化学”（“Chemistry”），则可以使用以下命令：
+\begin{Verbatim}
+\cmajor{化学}
+\emajor{Chemistry}
+\end{Verbatim}
+
+\section{摘要}
+\label{sec:abstract}
+
+\texttt{\bfseries cabstract} 和 \texttt{\bfseries eabstract} 环境用于编写
+中英文摘要。
+用户只须要写摘要的正文；标题、作者、导师、专业等部分会自动生成，盲审模式下这些信息也会自动隐藏。
+
+如论文工作受到基金资助，需要在中文摘要第一页的页脚处标注：本研 究得到某某基金（编号：xxx）资助。
+
+
+\section{目录、表格索引、插图索引}
+\label{sec:directory}
+
+目录使用 \texttt{\bfseries \string\tableofcontents} 命令生成。
+表格索引使用 \texttt{\bfseries \string\listoftables} 命令生成。
+插图索引使用 \texttt{\bfseries \string\listoffigures} 命令生成。
+
+\section{主要符号对照表}
+\label{sec:denotation}
+
+参考\verb|chap/Denotation.tex|即可，在\verb|denotation|环境下，使用\verb|\item[X] Y|分别表示符号及其说明。
+
+已知问题: 符号处不能输入中括号$[$,$]$。
+
+\section{参考文献}
+\label{sec:bibtex}
+
+参考文献根据写作指南使用\verb|gb7714-2015|bibstyle进行管理，具体引用命令与日常使用类似，\verb|\cite{}|，\verb|\citet{}|，\verb|\citeauthor{}|，具体用法见相应文档\footnote{\url{https://github.com/hushidong/biblatex-gb7714-2015}}。
+
+例如\verb|\cite{devlin2018bert}|=\cite{devlin2018bert}，\verb|\citeauthor{gut2013probability}|=\citeauthor{gut2013probability}，...
+相对于的bib文件的书写基本上直接用Google Scholar拷贝的BibTex即可，部分属性按提示进行微调。
+\begin{Verbatim}
+    \usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\end{Verbatim}
+
+\section{其他}
+\label{sec:misc}
+
+正文不建议使用四级目录 \texttt{\bfseries\string\subsubsection{}}。
+
+\texttt{\bfseries\string\specialchap} 命令
+用于开始不进行标号但计入目录的一章，
+并合理安排其页眉。\emph{%
+    注意：须要启用 \texttt{spechap} 选项才能使用此命令。
+    另外，在此章内的节或小节等命令应使用带星号的版本，
+    例如 \texttt{\string\section\string*} 等，
+    以免造成章节编号混乱。%
+}%
+例如，本文档中的“序言”一章就是用 \verb|\specialchap{序言}|
+这条命令开始的。%
+
+\texttt{\bfseries\string\setpdfproperties} 命令
+用于根据用户设定的文档信息自动设定生成的 pdf 文档的属性。
+此命令会在用户调用 \verb|\maketitle| 命令时被自动调用，
+因此通常不需要用户自己使用；
+但用户有时可能不须要输出封面，从而不会调用 \verb|\maketitle| 命令，
+此时就须要在设定完文档信息之后调用 \verb|\setpdfproperties|。%
+\emph{注意：须要启用 \texttt{pdfprop} 选项才能使用此命令。}
