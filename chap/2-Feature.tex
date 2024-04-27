@@ -188,17 +188,18 @@
 \section{其他}
 \label{sec:misc}
 
-正文不建议使用四级目录 \texttt{\bfseries\string\subsubsection{}}。
+《北京大学研究生学位论文写作指南》~\cite{pku-thesisguide}提到“一般情况下，不建议使用三级及以上节标题”。
+对应到本模板，即不建议使用命令 \texttt{\bfseries\string\subsubsection\{\}}。
 
-\texttt{\bfseries\string\specialchap} 命令
+\texttt{\bfseries\string\specialchap\{\}} 命令
 用于开始不进行标号但计入目录的一章，
 并合理安排其页眉。\emph{%
     注意：须要启用 \texttt{spechap} 选项才能使用此命令。
     另外，在此章内的节或小节等命令应使用带星号的版本，
-    例如 \texttt{\string\section\string*} 等，
+    例如 \texttt{\string\section\string*\{\}} 等，
     以免造成章节编号混乱。%
 }%
-例如，本文档中的“序言”一章就是用 \verb|\specialchap{序言}|
+例如，本文档中的“北京大学学位论文原创性声明和使用授权说明”一章就是用 \verb|\specialchap{北京大学学位论文原创性声明和使用授权说明}|
 这条命令开始的。%
 
 \texttt{\bfseries\string\setpdfproperties} 命令
