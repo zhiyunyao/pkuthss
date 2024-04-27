@@ -142,7 +142,7 @@
     % Use circled numbers as footnote symbols. Does not affect title page, but
     % footnote is rarely used in dissertation covers ;)
     \renewcommand*{\thefootnote}{\protect\thss@int@circled{\arabic{footnote}}}
-	\renewcommand*{\thempfootnote}{\protect\thss@int@circled{\arabic{mpfootnote}}}
+    \renewcommand*{\thempfootnote}{\protect\thss@int@circled{\arabic{mpfootnote}}}
     % Provides utility to modify footnote spacing.
     \RequirePackage{scrextend}
     % Set up footnote spacing: whole paragraph indent 1.5 ccwd, 0.5 ccwd after mark.
