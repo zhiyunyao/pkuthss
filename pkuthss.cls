@@ -44,8 +44,6 @@
     \DeclareOption{#1}{\@nameuse{thss@opt@#1true}}
     \DeclareOption{no#1}{\@nameuse{thss@opt@#1false}}
 }
-% Whether to enable `\Uppercase' (works problematically) in heading marks.
-\thss@int@boolopt{uppermark}{false}
 % Whether to modify fonts according to school regulation.
 \thss@int@boolopt{pkufont}{true}
 % Whether to modify footnote format according to school regulation.
@@ -65,6 +63,8 @@
 \thss@int@boolopt{ugly}{false}
 % Whether to enable double-blind mode.
 \thss@int@boolopt{blind}{false}
+% Whether to enable english mode.
+\thss@int@boolopt{english}{false}
 % Pass all other options to `ctexbook' document class.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 % Process all class options now.
@@ -100,8 +100,8 @@
         \let\sumop\relax\let\prodop\relax
         \DeclareMathSymbol{\sumop}{\mathop}{CMlargesymbols}{"50}
         \DeclareMathSymbol{\prodop}{\mathop}{CMlargesymbols}{"51}
-        \renewcommand{\Box}{\mdlgwhtsquare}
-        \newcommand{\checkbox}{\checkmark\hspace{-0.85em}\Box}
+        \renewcommand{\Box}{\raisebox{0.06em}{\mdlgwhtsquare}}
+        \newcommand{\checkbox}{\raisebox{0.12em}{\checkmark}\hspace{-0.95em}\Box}
 
         \setmainfont[
             Extension = .otf,
@@ -231,7 +231,6 @@
 \def\label@academic{学术学位}
 \def\label@technical{专业学位}
 \def\label@cabstract{摘要}
-\def\label@denotation{主要符号对照表}
 \def\label@ementor{Supervised by\ }
 \def\label@ekeywords{KEY WORDS:\ }
 \def\label@eabstract{ABSTRACT}
@@ -307,30 +306,45 @@
     }
 \fi
 
-% `\MakeUppercase' works problematically.
-% eg. it converts `\cite{ctex}' into `\cite{CTEX}'.
-% This option can disable `\MakeUppercase' in left/right heading marks.
-\ifthss@opt@uppermark
-    \def\thss@int@setcase#1{#1}
+\ifthss@opt@english
+    \def\label@denotation{Notation}
+    \def\label@acks{Acknowledgments}
+    \ctexset{
+        contentsname   = {Contents},
+        listtablename  = {List of Tables},
+        listfigurename = {List of Figures},
+        tablename      = {Table},
+        figurename     = {Figure},
+        indexname      = {Index},
+        appendixname   = {Appendix},
+        bibname        = {References},
+        part/name      = {\partname\space},
+        part/number    = {\thepart},
+        chapter/name   = {\chaptername\space},
+        chapter/number = {\thechapter},
+        chapter/aftername = {\space},
+        section/aftername = {\space},
+        subsection/aftername = {\space},
+        autoindent = {0.8cm}
+    }
 \else
-    % Code copied from fancyhdr's `\nouppercase', with the redefinition of
-    % `\uppercase' dropped to avoid disrupting CJKutf8.
-    % cf. <https://code.google.com/p/ctex-kit/issues/detail?id=147>.
-    \def\thss@int@setcase#1{%
-        \let\MakeUppercase\relax%
-        \expandafter\let\csname MakeUppercase \endcsname\relax%
-        #1%
+    \def\label@denotation{主要符号对照表}
+    \def\label@acks{致谢}
+    \ctexset{
+        listtablename  = {表格索引},
+        listfigurename = {插图索引}
     }
 \fi
+
 % The actual page style setup.
 \fancypagestyle{plain}{
     \fancyhf{}\renewcommand*{\headrulewidth}{0.75bp}
     \fancyfoot[C]{\zihao{5}\normalfont{\thepage}}
     \if@twoside
         \fancyhead[CE]{\zihao{5}\normalfont{\@cthesisname}}
-        \fancyhead[CO]{\zihao{5}\normalfont\thss@int@setcase{\leftmark}}
+        \fancyhead[CO]{\zihao{5}\normalfont{\nouppercase\leftmark}}
     \else
-        \fancyhead[C]{\zihao{5}\normalfont\thss@int@setcase{\leftmark}}
+        \fancyhead[C]{\zihao{5}\normalfont{\nouppercase\leftmark}}
     \fi
 }
 \pagestyle{plain}
@@ -513,5 +527,8 @@
 }{%
     \end{thss@denotation}
 }
+
+% Typeset the acknowledgments.
+\def\acks{\chapter{\label@acks}}
 
 \endinput

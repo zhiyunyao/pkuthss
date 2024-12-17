@@ -15,6 +15,7 @@
 % 默认字号     zihao    (-4 | 5)    设定默认字号为小四|五号
 % 学位论文模式  ugly   (默认关闭)   打开后论文严格按照学校格式要求编译
 % 盲审模式     blind   (默认关闭)   打开后论文按照盲审格式编译
+% 英文模式    english  (默认关闭)   打开后论文按照英文格式编译
 % 章节新页模式 openany (默认关闭)   每章都从右页（奇数页）开始；打开后每章从任意页开始（禁止章末空白页）
 
 % 参考文献遵循GB/T 7714-2015标准，使用biblatex-gb7714-2015 宏包
@@ -31,7 +32,8 @@
 \usepackage{enumitem,fancyvrb} % 列表相关
 \usepackage{booktabs,multirow,longtable,makecell} % 表格相关
 \usepackage{hologo} % Tex徽标
-\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{frame=single, tabsize=4, fontsize=\footnotesize}
+\usepackage{pdfpages}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{frame=single,tabsize=4,fontsize=\footnotesize}
 \renewcommand{\v}[1]{\boldsymbol{#1}}
 \newcommand\pkg[1]{\textsf{#1}}
 \def\liteversion{v1.9.4-lite}
@@ -74,17 +76,6 @@
 % blindid: 盲审论文编号
 \blindid{9876543210}
 
-%% 设定论文元素名称
-\ctexset{
-    % appendixname   = {附录},
-    % bibname        = {参考文献},
-    % contentsname   = {目录},
-    listtablename  = {表格索引},
-    listfigurename = {插图索引},
-    % figurename     = {图},
-    % tablename      = {表}
-}
-
 %% 设定链接显示效果
 \hypersetup{
     hidelinks,                   % 移除链接的字体颜色和边框
@@ -106,6 +97,7 @@
     % 封面要求单面打印，故须新开右页
     \cleardoublepage
     \include{chap/Copyright}
+    % \includepdf{./filename.pdf}
 
     %% 此后到下一 \pagestyle 命令之前正常排版页眉和页脚
     \cleardoublepage

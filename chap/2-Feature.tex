@@ -13,17 +13,10 @@
             即不按照盲审格式编译%
         }。
 
-    \item \textbf{\texttt{[no]uppermark}}：
-        是否在页眉中将章节名中的小写字母转换为大写字母。
-        就目前而言，这样的转换存在着一些较为严重的缺陷\footnote{%
-            准确地说是 \texttt{\string\MakeUppercase} 宏的问题：
-            其在某些地方的转换不够健壮，
-            例如 \texttt{\string\cite\string{ctex\string}}
-            会被转换成 \texttt{\string\cite\string{CTEX\string}}。%
-        }，因此不建议使用。
-        基于上述考虑，\emph{%
-            pkuthss 文档类默认启用 \texttt{nouppermark} 选项，
-            即不在页眉中使用大写的章节名%
+    \item \textbf{\texttt{[no]english}}：
+        是否按照英文格式编译。英文格式下，模板自动生成的文字会显示为英文，但用户输入的内容不会受到影响。例如中文模式下“第一章 引言”在英文模式下显示为“Chapter 1 引言”。\emph{%
+            pkuthss 文档类默认启用 \texttt{noenglish} 选项，
+            即不按照英文格式编译%
         }。
 
     \item \textbf{\texttt{[no]pkufont}}：
@@ -199,8 +192,7 @@
     例如 \texttt{\string\section\string*\{\}} 等，
     以免造成章节编号混乱。%
 }%
-例如，本文档中的“北京大学学位论文原创性声明和使用授权说明”一章就是用 \verb|\specialchap{北京大学学位论文原创性声明和使用授权说明}|
-这条命令开始的。%
+例如，本文档中的“北京大学学位论文原创性声明和使用授权说明”一章就是用 \verb|\specialchap|这条命令开始的。%
 
 \texttt{\bfseries\string\setpdfproperties} 命令
 用于根据用户设定的文档信息自动设定生成的 pdf 文档的属性。
