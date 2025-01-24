@@ -141,6 +141,7 @@
     }
     % Use circled numbers as footnote symbols. Does not affect title page, but
     % footnote is rarely used in dissertation covers ;)
+    \RequirePackage[perpage]{footmisc}
     \renewcommand*{\thefootnote}{\protect\thss@int@circled{\arabic{footnote}}}
     \renewcommand*{\thempfootnote}{\protect\thss@int@circled{\arabic{mpfootnote}}}
     % Provides utility to modify footnote spacing.

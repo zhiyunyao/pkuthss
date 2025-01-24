@@ -20,7 +20,7 @@
 
 % 参考文献遵循GB/T 7714-2015标准，使用biblatex-gb7714-2015 宏包
 % 此处使用顺序编码制，如使用著者-出版年制则更改为b7714-2015ay
-\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
 \renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
 % 设定参考文献列表的段间距
 \setlength{\bibitemsep}{3bp}
@@ -28,7 +28,6 @@
 \addbibresource{thesis.bib}
 
 % 示例文档用包和设定，该段均可移除
-\usepackage[perpage]{footmisc} % 脚注按页编号
 \usepackage{enumitem,fancyvrb} % 列表相关
 \usepackage{booktabs,multirow,longtable,makecell} % 表格相关
 \usepackage{hologo} % Tex徽标
