@@ -8,36 +8,38 @@ pkuthss 文档类建立在 \CTeX{}宏集的 ctexbook\cite{ctex} 文档类之上�
 
 \subsection{字体设置}
 
-\texttt{pkufontauto} 和 \texttt{pkufontpath} 定义了符合北京大学论文要求的字体，
-包括中易宋体、中易黑体、中易楷体和中易仿宋四种字体，具体情况如下：
+在 \texttt{fontset} 选项中，提供了 \texttt{pkufontauto} 和 \texttt{pkufontpath} 两种设置方式，
+用于定义符合北京大学论文格式要求的四种常用中文字体，包括 中易宋体、中易黑体、中易楷体、中易仿宋。
+在字形设计上，还做了针对性的映射调整：
+中易黑体 作为 中易宋体 的粗体；
+中易楷体 作为 中易宋体 的斜体；
+中易黑体、中易楷体、中易仿宋 的 假粗体 作为其对应字体的粗体形式。
+
+具体字体及对应的 LaTeX 命令如下：
 \begin{itemize}
-    \item \verb|\songti|，中易宋体，作为默认中文字体使用，衬线字体，\verb|\textrm|；
-    \item \verb|\heiti|，中易黑体，无衬线字体，\verb|\bfseries|，\verb|\textbf|和\verb|\textsf|；
-    \item \verb|\fangsong|，中易仿宋，等宽字体，\verb|\texttt|；
-    \item \verb|\kaishu|，中易楷体，\verb|\textit|。
+    \item \verb|\songti| —— 中易宋体，作为默认中文衬线字体，对应命令 \verb|\textrm|；
+    \item \verb|\heiti| —— 中易黑体，作为默认中文粗体字体，与 \verb|\bfseries|、\verb|\textbf|、\verb|\textsf| 命令联动显示粗体；
+    \item \verb|\kaishu| —— 中易楷体，作为默认中文斜体字体，对应命令 \verb|\textit|；
+    \item \verb|\fangsong| —— 中易仿宋，作为默认中文等宽字体，对应命令 \verb|\texttt|。
 \end{itemize}
 
-字形方面，使用中易黑体作为中易宋体的粗体，中易楷体作为中易宋体的斜体，
-使用中易黑体、中易楷体、中易仿宋的假粗体作为对应字体的粗体。
+两种选项的区别在于字体的获取方式：
+\begin{itemize}
+    \item \texttt{pkufontauto} 会自动从系统中搜索所需字体，适合 Windows 平台，能够免去手动设置字体路径的步骤。
+    \item \texttt{pkufontpath} 则允许用户指定字体文件路径，从当前路径下的 \texttt{pkufont} 文件夹加载字体，适合缺少宋体等商用字体的平台（如 Overleaf）。
+\end{itemize}
+
+具体示例：在 Windows 平台上，应在载入 pkuthss 文档类时加上 \texttt{fontset=pkufontauto} 选项。
+在 Overleaf 平台上，则应在载入 pkuthss 文档类时加上 \texttt{fontset=pkufontpath} 选项，
+并在当前路径新建 \texttt{pkufont} 文件夹，放置 \texttt{SimSun.ttc}、\texttt{SimHei.ttf}、\texttt{KaiTi.ttf}和\texttt{FangSong.ttf} 四个字体文件。
+
+如果想要更换中文字体，可以通过新建 ctex-fontset-myfontset.def 定义自己的 fontset \verb|myfontset|。
 
 \texttt{pkufontauto} 和 \texttt{pkufontpath} 两种选项的区别是：
 \texttt{pkufontauto} 从系统中自动搜索字体，适用于 Windows 平台；
 \texttt{pkufontpath} 则通过指定字体文件路径，使用当前路径 \texttt{pkufont} 文件夹下的字体，
 适用于缺少相应字体的平台。
 
-例如，在 Windows 平台上，应在载入 pkuthss 文档类时加上：
-\begin{Verbatim}
-\documentclass[fontset=pkufontauto, ...]{pkuthss}
-% “...”代表其它的选项。
-\end{Verbatim}
-而在 Overleaf 平台上，则应在载入 pkuthss 文档类时加上：
-\begin{Verbatim}
-\documentclass[fontset=pkufontpath, ...]{pkuthss}
-% “...”代表其它的选项。
-\end{Verbatim}
-并在当前路径新建 \texttt{pkufont} 文件夹，放置四种字体。
-
-如果想要更换中文字体，可以通过新建 ctex-fontset-myfontset.def 定义自己的 fontset \verb|myfontset|。
 在系统装有相应字体时，也可以使用CTEX预定义的六种中文字库：
 \begin{itemize}
     \item \verb|adobe|，使用Adobe公司的中文字体，不支持\hologo{pdfLaTeX}。
@@ -61,10 +63,7 @@ pkuthss 文档类建立在 \CTeX{}宏集的 ctexbook\cite{ctex} 文档类之上�
 
 \subsection{章节新页模式设置}
 文档默认情况下是双面模式，每章都从右页（奇数页）开始。
-如果希望改成一章可以从任意页开始（禁止章末空白页），可以加上 \texttt{openany} 选项：
-\begin{Verbatim}
-\documentclass[openany, ...]{pkuthss} % 每章从任意页开始。
-\end{Verbatim}
+如果希望改成一章可以从任意页开始（禁止章末空白页），可以在载入 pkuthss 文档类时加上 \texttt{openany} 选项。
 
 \subsection{论文元素名称设置}
 用户可以使用 ctexbook 文档类提供的 \verb|\ctexset| 命令设定论文元素名称：
