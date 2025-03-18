@@ -9,25 +9,37 @@
 % Copyright (c) 2022 iofu728
 % Copyright (c) 2024 Zhiyunyao
 
+%% pkuthss 文档类常用选项说明: 
 \documentclass[fontset=pkufontauto,zihao=-4,ugly,openany]{pkuthss}
-% 字体库      fontset (pkufontauto | pkufontpath)  系统装有宋体等字体请使用 pkufontauto；
-%                                  否则使用 pkufontpath 并新建 pkufont 文件夹放置所需字体
-% 默认字号     zihao    (-4 | 5)    设定默认字号为小四|五号
-% 学位论文模式  ugly   (默认关闭)   打开后论文严格按照学校格式要求编译
-% 盲审模式     blind   (默认关闭)   打开后论文按照盲审格式编译
-% 英文模式    english  (默认关闭)   打开后论文按照英文格式编译
-% 章节新页模式 openany (默认关闭)   每章都从右页（奇数页）开始；打开后每章从任意页开始（禁止章末空白页）
+% [字体设置]
+%    - fontset=pkufontauto 调用系统安装的宋体、黑体、楷体、仿宋字体，适合 Windows 平台
+%    - fontset=pkufontpath 调用项目根目录 pkufont 文件夹内字体文件，适合缺少字体的平台
+% [正文字号]
+%    - zihao=-4            设置正文字号为小四号
+%    - zihao=5             设置正文字号为五号
+% [格式控制]
+%    - ugly                启用严格格式，严格按照北大论文格式要求排版
+%    - blind               启用盲审格式，隐藏作者、导师等个人信息
+%    - english             启用英文格式，模板自动生成的文字会显示为英文
+% [章节分页规则]
+%    - openany             每章可从任意页开始，避免章末空白页，适合电子版阅读
+%    - openright           每章必须从右页（奇数页）开始，满足论文装订要求，适合打印纸质版
 
-% 参考文献遵循GB/T 7714-2015标准，使用biblatex-gb7714-2015 宏包
-% 此处使用顺序编码制，如使用著者-出版年制则更改为b7714-2015ay
+%% biblatex 宏包常用选项说明: 
 \usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
+% [文献格式控制]
+%    - style=gb7714-2015    按 GB/T 7714-2015 标准的“顺序编码制”格式输出，示例：[1]、[2]
+%    - style=gb7714-2015ay  按 GB/T 7714-2015 标准的“著者-出版年制”格式输出，示例：(Vector, 2011)
+% [作者姓名格式]
+%    - gbnamefmt=lowercase  作者姓名首字母大写，示例：Vector
+%    - gbnamefmt=uppercase  作者姓名全部字母大写，示例：VECTOR
 \renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
 % 设定参考文献列表的段间距
 \setlength{\bibitemsep}{3bp}
 % 载入参考文献数据库（注意不要省略“.bib”）
 \addbibresource{thesis.bib}
 
-% 示例文档用包和设定，该段均可移除
+%% 示例文档使用宏包和设定
 \usepackage{enumitem,fancyvrb} % 列表相关
 \usepackage{booktabs,multirow,longtable,makecell} % 表格相关
 \usepackage{hologo} % Tex徽标
@@ -38,7 +50,7 @@
 \def\liteversion{v1.9.4-lite}
 \def\pkuthss{pkuthss \liteversion}
 
-%% 设定文档基本信息（按照在论文中出现顺序）
+%% 按照在论文中出现顺序，设定文档基本信息
 % cthesisname: 论文类别，显示在偶数页页眉和pdf文档subject属性，如：
 %              北京大学博士学位论文/北京大学硕士学位论文
 \cthesisname{北京大学博士学位论文}
@@ -46,7 +58,7 @@
 \thesiscover{博士研究生学位论文}
 % ctitlelines: 封面论文标题的下划线行数，设置为0则不在封面显示标题
 \ctitlelines{1}
-% ctitle: 论文标题，长标题用“\\”强制换行（v1.9.4-lite之前版本“\\”问题已修复）
+% ctitle: 论文标题，长标题用“\\”强制换行（之前版本相关问题已修复）
 \ctitle{\pkuthss{} 用户指南}
 \cauthor{某某某}
 \studentid{0123456789}
@@ -61,7 +73,7 @@
 \date{二〇二四年五月}
 \ckeywords{其一，其二}
 
-% 英文信息，只在英文摘要页显示
+%% 英文摘要页信息
 \etitle{\pkuthss{} User Guide}
 \eauthor{XXXXXX XXX}
 \emajor{XX Major}
@@ -69,7 +81,7 @@
 \ementor{Prof.\ A and Prof.\ B}
 \ekeywords{First, Second}
 
-%% 盲审信息，只在盲审模式显示，无盲审需求的用户可忽略
+%% 盲审信息，只在盲审模式显示，非盲审模式可忽略
 % discipline: 一级学科（cmajor是二级学科）
 \discipline{计算机科学与技术}
 % blindid: 盲审论文编号
