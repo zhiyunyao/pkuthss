@@ -9,8 +9,9 @@
 % Copyright (c) 2022 iofu728
 % Copyright (c) 2024 Zhiyunyao
 
-%% pkuthss 文档类常用选项说明: 
+%% 导入 pkuthss 文档类
 \documentclass[fontset=pkufontauto,zihao=-4,ugly,openany]{pkuthss}
+% 格式控制选项说明:
 % [字体设置]
 %    - fontset=pkufontauto 调用系统安装的宋体、黑体、楷体、仿宋字体，适合 Windows 平台
 %    - fontset=pkufontpath 调用项目根目录 pkufont 文件夹内字体文件，适合缺少字体的平台
@@ -25,8 +26,9 @@
 %    - openany             每章可从任意页开始，避免章末空白页，适合电子版阅读
 %    - openright           每章必须从右页（奇数页）开始，满足论文装订要求，适合打印纸质版
 
-%% biblatex 宏包常用选项说明: 
+%% 导入 biblatex 宏包
 \usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
+% 格式控制选项说明:
 % [文献格式控制]
 %    - style=gb7714-2015    按 GB/T 7714-2015 标准的“顺序编码制”格式输出，示例：[1]、[2]
 %    - style=gb7714-2015ay  按 GB/T 7714-2015 标准的“著者-出版年制”格式输出，示例：(Vector, 2011)
@@ -81,7 +83,7 @@
 \ementor{Prof.\ A and Prof.\ B}
 \ekeywords{First, Second}
 
-%% 盲审信息，只在盲审模式显示，非盲审模式可忽略
+%% 盲审信息，只在盲审格式显示，非盲审格式可忽略
 % discipline: 一级学科（cmajor是二级学科）
 \discipline{计算机科学与技术}
 % blindid: 盲审论文编号
