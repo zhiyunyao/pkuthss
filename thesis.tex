@@ -11,7 +11,7 @@
 
 %% 导入 pkuthss 文档类
 \documentclass[fontset=pkufontauto,zihao=-4,ugly,openany]{pkuthss}
-% 格式控制选项说明:
+% 文档类格式控制选项说明:
 % [字体设置]
 %    - fontset=pkufontauto 调用系统安装的宋体、黑体、楷体、仿宋字体，适合 Windows 平台
 %    - fontset=pkufontpath 调用项目根目录 pkufont 文件夹内字体文件，适合缺少字体的平台
@@ -27,14 +27,22 @@
 %    - openright           每章必须从右页（奇数页）开始，满足论文装订要求，适合打印纸质版
 
 %% 导入 biblatex 宏包
-\usepackage[backend=biber,style=gb7714-2015,gbnamefmt=lowercase]{biblatex}
-% 格式控制选项说明:
-% [文献格式控制]
-%    - style=gb7714-2015    按 GB/T 7714-2015 标准的“顺序编码制”格式输出，示例：[1]、[2]
-%    - style=gb7714-2015ay  按 GB/T 7714-2015 标准的“著者-出版年制”格式输出，示例：(Vector, 2011)
-% [作者姓名格式]
-%    - gbnamefmt=lowercase  作者姓名首字母大写，示例：Vector
-%    - gbnamefmt=uppercase  作者姓名全部字母大写，示例：VECTOR
+\usepackage[backend=biber,style=gb7714-2015,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+% \usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+% 宏包格式控制选项说明（详见 userguide 2.6节）:
+%    - style=gb7714-2015   按 “顺序编码制”标注，示例：\cite 生成 [1]、[2]
+%    - style=gb7714-2015ay 按 “著者-出版年制”标注，示例：\cite 生成 (赵, 2011)，\citet 生成 赵 (2011)
+% [正文中的标注格式]
+%    - maxcitenames  控制正文中的标注最多显示的作者数，若超出会显示为“作者1等”
+%    - mincitenames  控制在“等”前显示的作者数量
+% [参考文献表格式]
+%    - maxbibnames   控制参考文献表中，每个条目最多显示的作者数量，超出部分会使用“等”省略
+%    - gbnamefmt     控制参考文献表英文姓氏大小写规则
+% 设置正文中的标注显示多位作者时，最后两位作者间的连接符
+\DeclareDelimFormat[cite,textcite]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
+% 设置参考文献表显示多位作者时，最后两位作者间的连接符
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{，和}{, and\space}}}
+% 设定参考文献列表的字号和行间距
 \renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
 % 设定参考文献列表的段间距
 \setlength{\bibitemsep}{3bp}

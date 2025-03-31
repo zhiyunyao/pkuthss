@@ -133,8 +133,8 @@
     \item \texttt{\bfseries\string\emajor}：设定作者专业（二级学科）的西文名；
     \item \texttt{\bfseries\string\ementor}：设定导师的西文名；
     \item \texttt{\bfseries\string\ekeywords}：设定西文关键词；
-    \item \texttt{\bfseries\string\discipline}：设定一级学科（双盲评审用）。
-    \item \texttt{\bfseries\string\blindid}：设定论文编号（双盲评审用）；
+    \item \texttt{\bfseries\string\discipline}：设定一级学科（双盲评审用）；
+    \item \texttt{\bfseries\string\blindid}：设定论文编号（双盲评审用）。
 \end{itemize}
 
 例如，如果要设定专业为“化学”（“Chemistry”），则可以使用以下命令：
@@ -170,12 +170,98 @@
 \section{参考文献}
 \label{sec:bibtex}
 
-参考文献根据写作指南使用\verb|gb7714-2015|bibstyle进行管理，具体引用命令与日常使用类似，\verb|\cite{}|，\verb|\citet{}|，\verb|\citeauthor{}|，具体用法见相应文档\footnote{\url{https://github.com/hushidong/biblatex-gb7714-2015}}。
+本模板使用\verb|biblatex-gb7714-2015|宏包\footnote{\url{https://github.com/hushidong/biblatex-gb7714-2015}}进行参考文献管理与格式化，并提供相应的个性化配置方法。
 
-例如\verb|\cite{devlin2018bert}|=\cite{devlin2018bert}，\verb|\citeauthor{gut2013probability}|=\citeauthor{gut2013probability}，...
-相对于的bib文件的书写基本上直接用Google Scholar拷贝的BibTex即可，部分属性按提示进行微调。
+\subsection{参考文献标注方式设置}
+如要按 “顺序编码制”标注（\verb|\cite|生成 “[1]、[2]”），使用以下配置：
 \begin{Verbatim}
-    \usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+\end{Verbatim}
+如要按 “著者-出版年制”标注（\verb|\cite| 生成 “(赵, 2011)”，\verb|\citet| 生成 “赵 (2011)”），使用以下配置：
+\begin{Verbatim}
+\usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,
+maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+\end{Verbatim}
+
+\subsection{正文中的标注格式个性化配置}
+
+首先可以自定义“著者-出版年制”标注方式下，正文中的标注显示的作者数。
+\begin{itemize}
+    \item \texttt{\bfseries maxcitenames}：控制正文中的标注最多显示的作者数，若超出会显示为“作者1等”。
+    \item \texttt{\bfseries mincitenames}：控制在“等”前显示的作者数量。
+    \item 需满足 \texttt{\bfseries maxcitenames} ≥ \texttt{\bfseries mincitenames}。
+\end{itemize}
+
+控制示例：
+\begin{table*}[htb]
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule[1.5pt]
+        \textbf{maxcitenames} & \textbf{赵} & \textbf{赵, 钱} & \textbf{赵, 钱, 孙} & \textbf{赵, 钱, 孙, 李} \\
+        \midrule
+        1 & 赵 & 赵等 & 赵等 & 赵等 \\
+        \midrule
+        2 & 赵 & 赵和钱 & 赵等 & 赵等 \\
+        \midrule
+        3 & 赵 & 赵和钱 & 赵, 钱和孙 & 赵等 \\
+        \midrule
+        4 & 赵 & 赵和钱 & 赵, 钱和孙 & 赵, 钱, 孙和李 \\
+        \bottomrule[1.5pt]
+    \end{tabular}
+    \caption{mincitenames=1时，不同maxcitenames生成的标注。}
+    \label{tab:mincitenames1}
+\end{table*}
+\begin{table*}[htb]
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule[1.5pt]
+        \textbf{maxcitenames} & \textbf{赵} & \textbf{赵, 钱} & \textbf{赵, 钱, 孙} & \textbf{赵, 钱, 孙, 李} \\
+        \midrule
+        2 & 赵 & 赵和钱 & 赵, 钱等 & 赵, 钱等 \\
+        \midrule
+        3 & 赵 & 赵和钱 & 赵, 钱和孙 & 赵, 钱等 \\
+        \midrule
+        4 & 赵 & 赵和钱 & 赵, 钱和孙 & 赵, 钱, 孙和李 \\
+        \bottomrule[1.5pt]
+    \end{tabular}
+    \caption{mincitenames=2时，不同maxcitenames生成的标注。}
+    \label{tab:mincitenames2}
+\end{table*}
+
+其次可以设置正文中的标注显示多位作者时，最后两位作者间的连接符。本模板中文作者使用“和”连接，英文作者使用“and”连接：
+\begin{Verbatim}
+\DeclareDelimFormat[cite,textcite]{finalnamedelim}
+{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
+\end{Verbatim}
+
+\subsection{参考文献表格式个性化配置}
+首先可以自定义参考文献表中，每个条目显示的作者数量和大小写格式。
+\begin{itemize}
+    \item \texttt{\bfseries maxbibnames}：控制参考文献表中，每个条目最多显示的作者数量，超出部分会使用“等”省略。
+    \item \texttt{\bfseries gbnamefmt}：控制参考文献表英文姓氏的大小写格式。
+    \begin{itemize}
+        \item lowercase：首字母大写（示例：Vector）。
+        \item uppercase：全大写（示例：VECTOR）。
+    \end{itemize}
+\end{itemize}
+
+其次可以设置参考文献表显示多位作者时，最后两位作者间的连接符。本模板中文作者使用“，和”连接，英文作者使用“, and”连接：
+\begin{Verbatim}
+\DeclareDelimFormat[bib,biblist]{finalnamedelim}
+{{\iffieldequalstr{userf}{chinese}{，和}{, and\space}}}
+\end{Verbatim}
+
+然后设置参考文献表的排版格式：
+\begin{Verbatim}
+% 设定参考文献列表的字号和行间距
+\renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
+% 设定参考文献列表的段间距
+\setlength{\bibitemsep}{3bp}
+\end{Verbatim}
+
+最后载入参考文献数据库（注意不要省略“.bib”）：
+\begin{Verbatim}
+\addbibresource{thesis.bib}
 \end{Verbatim}
 
 \section{其他}
