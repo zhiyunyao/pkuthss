@@ -65,6 +65,8 @@
 \thss@int@boolopt{blind}{false}
 % Whether to enable english mode.
 \thss@int@boolopt{english}{false}
+% Whether to disable blank pages.
+\thss@int@boolopt{openany}{false}
 % Pass all other options to `ctexbook' document class.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 % Process all class options now.
@@ -208,6 +210,9 @@
             \thss@int@pdfmark{\contentsname}{contents}
             \thss@tmp@tableofcontents%
         }
+    \fi
+    \ifthss@opt@openany
+        \let\cleardoublepage\clearpage
     \fi
 }
 
