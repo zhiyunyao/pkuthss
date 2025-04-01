@@ -175,12 +175,12 @@
 \subsection{参考文献标注方式设置}
 如要按 “顺序编码制”标注（\verb|\cite|生成 “[1]、[2]”），使用以下配置：
 \begin{Verbatim}
-\usepackage[backend=biber,style=gb7714-2015,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,maxbibnames=3,gbnamefmt=lowercase]{biblatex}
 \end{Verbatim}
 如要按 “著者-出版年制”标注（\verb|\cite| 生成 “(赵, 2011)”，\verb|\citet| 生成 “赵 (2011)”），使用以下配置：
 \begin{Verbatim}
 \usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,
-maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+maxbibnames=3,gbnamefmt=lowercase]{biblatex}
 \end{Verbatim}
 
 \subsection{正文中的标注格式个性化配置}
@@ -228,7 +228,7 @@ maxbibnames=6,gbnamefmt=lowercase]{biblatex}
     \label{tab:mincitenames2}
 \end{table*}
 
-其次可以设置正文中的标注显示多位作者时，最后两位作者间的连接符。本模板中文作者使用“和”连接，英文作者使用“and”连接：
+其次可以设置正文中的标注显示多位作者时，最后两位作者间的连接符。若要使得最后两位中文作者间使用“和”连接，英文作者间使用“and”连接，使用以下命令：
 \begin{Verbatim}
 \DeclareDelimFormat[cite,textcite]{finalnamedelim}
 {{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
@@ -245,10 +245,10 @@ maxbibnames=6,gbnamefmt=lowercase]{biblatex}
     \end{itemize}
 \end{itemize}
 
-其次可以设置参考文献表显示多位作者时，最后两位作者间的连接符。本模板中文作者使用“，和”连接，英文作者使用“, and”连接：
+其次可以设置参考文献表显示多位作者时，最后两位作者间的连接符。若要使得最后两位中文作者间使用“和”连接，英文作者使用“and”连接，使用以下命令：
 \begin{Verbatim}
 \DeclareDelimFormat[bib,biblist]{finalnamedelim}
-{{\iffieldequalstr{userf}{chinese}{，和}{, and\space}}}
+{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
 \end{Verbatim}
 
 然后设置参考文献表的排版格式：

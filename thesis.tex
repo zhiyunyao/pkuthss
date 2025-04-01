@@ -27,8 +27,8 @@
 %    - openright           每章必须从右页（奇数页）开始，满足论文装订要求，适合打印纸质版
 
 %% 导入 biblatex 宏包
-\usepackage[backend=biber,style=gb7714-2015,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
-% \usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,maxbibnames=6,gbnamefmt=lowercase]{biblatex}
+\usepackage[backend=biber,style=gb7714-2015,maxbibnames=3,gbnamefmt=lowercase]{biblatex}
+% \usepackage[backend=biber,style=gb7714-2015ay,maxcitenames=3,maxbibnames=3,gbnamefmt=lowercase]{biblatex}
 % 宏包格式控制选项说明（详见 userguide 2.6节）:
 %    - style=gb7714-2015   按 “顺序编码制”标注，示例：\cite 生成 [1]、[2]
 %    - style=gb7714-2015ay 按 “著者-出版年制”标注，示例：\cite 生成 (赵, 2011)，\citet 生成 赵 (2011)
@@ -39,9 +39,9 @@
 %    - maxbibnames   控制参考文献表中，每个条目最多显示的作者数量，超出部分会使用“等”省略
 %    - gbnamefmt     控制参考文献表英文姓氏大小写规则
 % 设置正文中的标注显示多位作者时，最后两位作者间的连接符
-\DeclareDelimFormat[cite,textcite]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
+% \DeclareDelimFormat[cite,textcite]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
 % 设置参考文献表显示多位作者时，最后两位作者间的连接符
-\DeclareDelimFormat[bib,biblist]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{，和}{, and\space}}}
+% \DeclareDelimFormat[bib,biblist]{finalnamedelim}{{\iffieldequalstr{userf}{chinese}{和}{\space and\space}}}
 % 设定参考文献列表的字号和行间距
 \renewcommand*{\bibfont}{\zihao{5}\linespread{1.27}\selectfont}
 % 设定参考文献列表的段间距
