@@ -4,57 +4,79 @@
 \section{表格}
 \label{sec:table}
 
-一般学术论文需要使用三线表(如表~\ref{tab:example-table-basic})，需要依赖宏包\verb|booktabs|，使用\verb|\toprule|，\verb|\midrule|，\verb|\bottomrule|控制三线。
-此外表序和表名位于表格的上方。
-如果需要对表格内进行脚注，可通过\texttt{minipage}中嵌套\texttt{tabular}来实现，具体可参考Stack Overflow\footnote{\url{https://stackoverflow.com/questions/2888817/footnotes-for-tables-in-latex}}。
+\subsection{基本三线表}
+在学术论文中，通常需要使用三线表，且表格的表序和标题应位于表格的上方，基本用法如表~\ref{tab:example-table-basic}所示。通过导入 \verb|booktabs| 宏包，可以使用 \verb|\toprule|、\verb|\midrule| 和 \verb|\bottomrule| 来控制表格的三条水平线。
 
-如需要注明表格中数据来源，则可使用类似的方式，见表~\ref{tab:example-table-source-foot}。
+\begin{table*}[htb]
+    \centering
+    \caption{基本三线表。}
+    \label{tab:example-table-basic}
+    \begin{small}
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule[1.5pt]
+        & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{N} & \textbf{M} \\
+        \midrule[1pt]
+        默认        & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o X   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o Y   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o Z   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o N   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \quad w/o M   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+        \bottomrule[1.5pt]
+    \end{tabular}
+    \end{small}
+\end{table*}
+
+\subsection{带脚注的三线表}
+如果需要在表格中注明数据来源或添加脚注，可通过在\texttt{minipage}环境中嵌套\texttt{tabular}环境来实现，如表~\ref{tab:example-table-footnote}所示。
 
 \begin{table*}[htb]
     \centering
     \begin{minipage}[t]{0.55\linewidth} %
-        \caption[表格脚注样例表]{表格脚注样例表。表名可通过中括号添加缩略名。}
-        \label{tab:example-table-basic}
+        \caption{带脚注的三线表。}
+        \label{tab:example-table-footnote}
         \begin{small}
         \begin{tabular}{@{}lccccc@{}}
-         \toprule[1.5pt]
-         & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{N} & \textbf{M} \\
-         \midrule[1pt]
-            默认        & 99.99 & 99.99 & 99.99 & 99.99\footnote{表格中的脚注1} & 99.99 \\
-          \quad w/o X   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
-          \quad w/o Y   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
-          \quad w/o Z   & 99.99\footnote{表格中的脚注2} & 99.99 & 99.99 & 99.99 & 99.99 \\
-          \quad w/o N   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
-          \quad w/o M   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
-          \bottomrule[1.5pt]
+            \toprule[1.5pt]
+            & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{N} & \textbf{M} \\
+            \midrule[1pt]
+                默认        & 99.99 & 99.99 & 99.99 & 99.99\footnote{表格中的脚注1} & 99.99 \\
+            \quad w/o X   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o Y   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o Z   & 99.99\footnote{表格中的脚注2} & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o N   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \quad w/o M   & 99.99 & 99.99 & 99.99 & 99.99 & 99.99 \\
+            \bottomrule[1.5pt]
         \end{tabular}
         \end{small}
+        \\[6pt] \footnotesize 注：数据来源XXXXXX。\\
     \end{minipage}
 \end{table*}
 
+\subsection{多级表头效果的三线表}
+如果需要实现多级表头效果，可以通过导入 \verb|multirow| 宏包，使用 \verb|\multirow| 和 \verb|\multicolumn| 命令来控制表头的合并效果，如表~\ref{tab:example-table-multi}所示。
 \begin{table*}[htbp]
-   \centering
-   \caption[数据来源注释表]{表格数据来源注释样例表。}
-   \label{tab:example-table-source-foot}
-   \begin{minipage}[t]{0.9\textwidth}
-   \begin{small}
-   \begin{tabular}{@{}l|ccc|ccc@{}}
-   \toprule
-   \multirow{2}{*}{\textbf{Model}} & \multicolumn{3}{c|}{\textbf{数据集A}} & \multicolumn{3}{c}{\textbf{数据集B}} \\ \cmidrule(l){2-7} 
+    \centering
+    \caption{多级表头效果的三线表。}
+    \label{tab:example-table-multi}
+    \begin{small}
+    \begin{tabular}{@{}l|ccc|ccc@{}}
+    \toprule
+    \multirow{2}{*}{\textbf{Model}} & \multicolumn{3}{c|}{\textbf{数据集A}} & \multicolumn{3}{c}{\textbf{数据集B}} \\ \cmidrule(l){2-7} 
     & \textbf{指标a}(\%) & \textbf{指标b}(\%) & \textbf{指标c} & \textbf{指标a} (\%) & \textbf{指标b}(\%) & \textbf{指标c} \\ \midrule
-      \citet{devlin2018bert}      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
-      \citet{yang2019xlnet}      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
+        \citet{devlin2018bert}      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
+        \citet{yang2019xlnet}      &99.99  & 99.99  & 99.99  &99.99  & 99.99  & 99.99  \\
     \bottomrule
-   \end{tabular}\\[6pt]
-   \footnotesize 注：数据来源XXXXXX。\\
-   \end{small}
-   \end{minipage}
+    \end{tabular}
+    \end{small}
 \end{table*}
 
-当表格较大，不能在一页内打印时，可以“续表”的形式另页打印，可使用宏包\verb|longtable|实现，如表~\ref{tab:example-table-continue}。
+\subsection{续表形式的三线表}
+当表格较大，不能在一页内显示时，可以使用 \verb|longtable| 宏包，以“续表”的形式将表格分布到多个页面上，如表~\ref{tab:example-table-continue}所示。
 
-{\begin{longtable}[c]{c*{7}{r}}
-    \caption[续表]{续表样例表。}
+\begin{small}
+\begin{longtable}[c]{c*{7}{r}}
+    \caption{续表形式的三线表。}
     \label{tab:example-table-continue}\\
     \toprule[1.5pt]
      \multicolumn{1}{c}{年龄} & 性别 & \multicolumn{1}{c}{cp} & \multicolumn{1}{c}{静息血压} & \multicolumn{1}{c}{chol}
@@ -105,12 +127,66 @@
     64 & 1 & 3 & 110 & 211 & 0 & 0 & 144 \\
     49 & 1 & 1 & 130 & 266 & 0 & 1 & 171 \\
     64 & 1 & 3 & 110 & 211 & 0 & 0 & 144 \\
+    57 & 1 & 2 & 150 & 168 & 0 & 1 & 174 \\
+    54 & 1 & 0 & 140 & 239 & 0 & 1 & 160 \\
+    48 & 0 & 2 & 130 & 275 & 0 & 1 & 139 \\
+    49 & 1 & 1 & 130 & 266 & 0 & 1 & 171 \\
+    64 & 1 & 3 & 110 & 211 & 0 & 0 & 144 \\
+    49 & 1 & 1 & 130 & 266 & 0 & 1 & 171 \\
+    64 & 1 & 3 & 110 & 211 & 0 & 0 & 144 \\
     \bottomrule[1.5pt]
 \end{longtable}
-\footnotesize 注：数据来源于Kaggle Heart Attack Analysis \& Prediction Data Set。}
+\footnotesize 注：数据来源于Kaggle Heart Attack Analysis \& Prediction Data Set。
+\end{small}
 
 \section{图片}
 \label{sec:figure}
+
+与表格相反，图序和图名需要位于图片的下方。
+如果含有子图，每个子图需要具有相应的子图名。
+
+\subsection{插入单个独立的图片}
+
+\begin{figure}[htb]\centering
+    \includegraphics[height=2cm]{fig/pkulogo.pdf}
+    \caption{北京大学校徽}
+    \label{fig:example-fig}
+\end{figure}
+
+\subsection{并排插入多个独立的图片}
+如果需要并排插入多个独立的图片，分别编排图序，则可使用\verb|minipage|环境，如图~\ref{fig:pkulogo-minipage}和图~\ref{fig:pkuword-minipage}。
+
+\begin{figure}[htb]\centering
+    \begin{minipage}[b]{0.25\linewidth}\centering
+        \includegraphics[height=2cm]{fig/pkulogo.pdf}
+        \caption{北京大学校徽\vspace{\baselineskip}}
+        \label{fig:pkulogo-minipage}
+    \end{minipage}\hfil
+    \begin{minipage}[b]{0.6\linewidth}\centering
+        \includegraphics[height=2cm]{fig/pkuword.pdf}
+        \caption{北京大学中文校名，依照北京大学标识管理办公室出具的北大标识使用基本规范进行使用}
+        \label{fig:pkuword-minipage}
+    \end{minipage}
+\end{figure}
+
+\subsection{插入具有多个子图的图片}
+
+如果需要插入具有多个子图的图片，推荐使用\verb|subcaption|宏包。如图~\ref{fig:example-fig-subcaption}所示，左边是子图~\ref{sfig:pkulogo-subcaption}，右边是子图~\ref{sfig:pkuword-subcaption}。
+
+\begin{figure}[htb]\centering
+    \begin{subfigure}[b]{0.25\linewidth}\centering
+        \includegraphics[height=2cm]{fig/pkulogo.pdf}
+        \caption{北京大学校徽\vspace{\baselineskip}}
+        \label{sfig:pkulogo-subcaption}\end{subfigure}\hfil
+    \begin{subfigure}[b]{0.6\linewidth}\centering
+        \includegraphics[height=2cm]{fig/pkuword.pdf}
+        \caption{北京大学中文校名，依照北京大学标识管理办公室出具的北大标识使用基本规范进行使用}
+        \label{sfig:pkuword-subcaption}\end{subfigure}\hfil
+    \caption{包含子图形的大图形，使用subcaption}
+    \label{fig:example-fig-subcaption}
+\end{figure}
+
+也可以使用\verb|subfloat|宏包，代码更简短，但是不如\verb|subcaption|宏包灵活。如图~\ref{fig:example-fig-subfloat}所示，左边是子图~\ref{sfig:pkulogo-subfloat}，右边是子图~\ref{sfig:pkuword-subfloat}。
 
 \begin{figure}[htb]\centering
     \subfloat[北京大学校徽]{
@@ -123,42 +199,7 @@
     \label{fig:example-fig-subfloat}
 \end{figure}
 
-\begin{figure}[htb]\centering
-    \begin{subfigure}[b]{0.25\linewidth}\centering
-        \includegraphics[height=2cm]{fig/pkulogo.pdf}
-        \caption{北京大学校徽}
-        \label{sfig:pkulogo-subcaption}\end{subfigure}\hfil
-    \begin{subfigure}[b]{0.5\linewidth}\centering
-        \includegraphics[height=2cm]{fig/pkuword.pdf}
-        \caption{北京大学中文校名，依照北京大学标识管理办公室出具的北大标识使用基本规范进行使用}
-        \label{sfig:pkuword-subcaption}\end{subfigure}\hfil
-    \caption{包含子图形的大图形，使用subcaption}
-    \label{fig:example-fig-subcaption}
-\end{figure}
-
-当需要插入多个子图的时候，可以选用宏包\verb|subfloat|或\verb|subcaption|，不推荐使用
-\verb|subfig|、\verb|subfigure| 和 \verb|subtable|。
-
-若使用宏包\verb|subfloat|或\verb|subcaption|，可直接使用引用\verb|\ref{sfig:xxxx}|引用子图label，如图~\ref{sfig:pkulogo-subfloat}。
-否则需要引用主图，再单独标注子图序号，以便符合学位论文要求。
-
-此外，与表格相反，图序和图名需要位于图片的下方。
-如果含有子图，每个子图需要具有相应的子图名。
-
-如果需要并排使用两个独立的图形，分别编排图序，则可使用\verb|minipage|，如图~\ref{fig:pkulogo-minipage}和图~\ref{fig:pkuword-minipage}。
-
-\begin{figure}[htb]\centering
-    \begin{minipage}{0.25\linewidth}\centering
-        \includegraphics[height=2cm]{fig/pkulogo.pdf}
-        \caption{北京大学校徽}
-        \label{fig:pkulogo-minipage}
-    \end{minipage}\hfil
-    \begin{minipage}{0.5\linewidth}\centering
-        \includegraphics[height=2cm]{fig/pkuword.pdf}
-        \caption{北京大学中文校名，依照北京大学标识管理办公室出具的北大标识使用基本规范进行使用}
-        \label{fig:pkuword-minipage}
-    \end{minipage}
-\end{figure}
+不推荐使用较老的\verb|subfig|、\verb|subfigure| 和 \verb|subtable|宏包，容易引起兼容性问题。
 
 \section{公式}
 \label{sec:equation}
@@ -172,4 +213,4 @@
     \int_a^b g^2-2f(y)g(y)\int_a^b fg\biggr\}\,dy
 \end{multline*}
 
-上述公式来源于\citeauthor{liu2003uncertain}的《不确定规划》\citet{liu2003uncertain}。
+上述公式来源于\citeauthor{liu2003uncertain}的《不确定规划》\cite{liu2003uncertain}。
